@@ -38,15 +38,17 @@ class testUserLogin(unittest.TestCase):
         data["uaToken"] = uaToken
         data["webUmidToken"] = webUmidToken
         info = ConfigHttp().run_request(
-            self.method, self.path, json.dumps().encode("utf-8")
+            self.method,
+            self.path,
+            json.dumps(data, ensure_ascii=False, sort_keys=True, indent=1),
         )
         result = json.loads(info)
         if self.case_name == "login":
-            assert result["code"] == 1044
+            assert result["code"] == "0"
         if self.case_name == "login_error":
-            assert result["code"] == 1041
+            assert result["code"] == "1041"
         if self.case_name == "login_null":
-            assert result["code"] == 1044
+            assert result["code"] == "1011"
 
 
 if __name__ == "__main__":
