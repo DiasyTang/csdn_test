@@ -12,8 +12,6 @@ from common.configHttp import ConfigHttp
 
 login_xls = ReadExcel().get_xls("userCase.xlsx", "login")
 read_config = ReadConfig()
-uaToken = read_config.get_http("uaToken")
-webUmidToken = read_config.get_http("webUmidToken")
 
 
 @paramunittest.parametrized(*login_xls)
@@ -57,10 +55,7 @@ class testUserLogin(unittest.TestCase):
             headers=headers,
         )
         checkRes = conn.getresponse()
-        checkData = checkRes.read()
         data = dict(urllib.parse.parse_qsl(self.query))
-        data["uaToken"] = uaToken
-        data["webUmidToken"] = webUmidToken
         headers = {
             "Host": "passport.csdn.net",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:66.0) Gecko/20100101 Firefox/66.0",
